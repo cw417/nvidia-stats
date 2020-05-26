@@ -9,6 +9,7 @@
 
 import subprocess
 import re
+import time
 
 def get_GPU_temp():
     cmd = 'nvidia-smi --query-gpu=temperature.gpu --format=csv'
@@ -52,10 +53,16 @@ def get_fan_speed():
     match  = reg.search(check).group(0)
     print(f'Fan Speed: {match}')
 
+def get_stats():
+    while True:
+        get_GPU_utilization()
+        get_GPU_clock()
+        get_VRAM_utilization()
+        get_VRAM_clock()
+        get_fan_speed()
+        get_GPU_temp()
+        print("\n\n")
+        time.sleep(2)
+
 if __name__ == '__main__':
-    get_GPU_utilization()
-    get_GPU_clock()
-    get_VRAM_utilization()
-    get_VRAM_clock()
-    get_fan_speed()
-    get_GPU_temp()
+    get_stats()
