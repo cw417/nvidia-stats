@@ -9,7 +9,7 @@ Nvidia GPU stat reporting app for Linux
 3. How It Works
 
 ## About
-NvidiaStats is a command line GPU stat reporting application written for use in a Linux-based operating system running the Xorg display server with proprietary Nvidia drivers. Currently, it will report GPU utilization, GPU clock, GPU temperature, and fan speed.
+NvidiaStats is a command line GPU stat reporting application written for use in a Linux-based operating system running the Xorg display server with proprietary Nvidia drivers. Currently, it will report GPU utilization, GPU clock, GPU temperature, VRAM utilization, VRAM clock, and fan speed.
 
 ## Getting Started
 ### Prerequisites
