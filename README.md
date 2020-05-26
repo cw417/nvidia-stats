@@ -21,7 +21,7 @@ NvidiaStats is a command line GPU stat reporting application written for use in 
 ### Installing
 1) Clone the repository: `git clone https://github.com/cw417/NvidiaStats`
 2) Ensure you are using prorietary drivers compatible with the NvidiaStats:
-    - `cat xorg.conf | grep nvidia-xconfig`
+    - `cat /etc/X11/xorg.conf | grep nvidia-xconfig`
     - If this returns an output, you are using proprietary Nvidia drivers
 3) Run NvidiaStats: 
     - Change directory into the cloned NvidiaStats directory: `cd NvidiaStats`
