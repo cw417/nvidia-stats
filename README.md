@@ -28,6 +28,6 @@ NvidiaStats is a command line GPU stat reporting application written for use in 
     - Run the app: `python app.py`
 
 ## How It Works
-    - GPU stats are obtained via the subprocess module running the `nvidia-smi -q` command with the specified stat output option
-    - Output from the subprocess module is parsed via regex
-    - The regex match output is formatted and printed to the command line
+ - GPU stats are obtained via the subprocess module running the `nvidia-smi -q` command with the specified stat output option
+ - Output from the subprocess module is parsed via regex
+ - The regex match output is formatted and printed to the command line
