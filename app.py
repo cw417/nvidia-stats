@@ -2,67 +2,99 @@
 #     - specify command to get GPU stats
 #     - run command with subprocess.check_output
 #     - parse output with regex
-#   TODO:
 #     - output regex match to csv file
+#   TODO:
 #     - convert csv to real time graph with matplotlib
 
 
 import subprocess
 import re
+import csv
 import time
 
-def get_GPU_temp():
+time_elapsed = 0
+
+def GPU_temp():
     cmd = 'nvidia-smi --query-gpu=temperature.gpu --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d\d')
     match  = reg.search(check).group(0)
-    print(f'GPU Temp: {match} C')
+    return match
 
-def get_GPU_utilization():
+def GPU_use():
     cmd = 'nvidia-smi --query-gpu=utilization.gpu --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d* %')
     match  = reg.search(check).group(0)
-    print(f'GPU Use: {match}')
+    num = match.strip(' %')
+    return num
 
-def get_GPU_clock():
+def GPU_clock():
     cmd = 'nvidia-smi --query-gpu=clocks.gr --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d\d\d\d MHz')
     match  = reg.search(check).group(0)
-    print(f'GPU Clock: {match}')
+    num = match.strip(' MHz')
+    return num
 
-def get_VRAM_utilization():
+def VRAM_use():
     cmd = 'nvidia-smi --query-gpu=utilization.memory --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d* %')
     match  = reg.search(check).group(0)
-    print(f'VRAM Use: {match}')
+    num = match.strip(' %')
+    return num
 
-def get_VRAM_clock():
+def VRAM_clock():
     cmd = 'nvidia-smi --query-gpu=clocks.mem --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d\d\d\d MHz')
     match  = reg.search(check).group(0)
-    print(f'VRAM Clock: {match}')
+    num = match.strip(' MHz')
+    return num
 
-def get_fan_speed():
+def fan_speed():
     cmd = 'nvidia-smi --query-gpu=fan.speed --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d* %')
     match  = reg.search(check).group(0)
-    print(f'Fan Speed: {match}')
+    num = match.strip(' %')
+    return num
+
+def print_formatted():
+        print(f'GPU Temp: {GPU_temp()} C')
+        print(f'GPU Use: {GPU_use()} %')
+        print(f'GPU Clock: {GPU_clock()} MHz')
+        print(f'VRAM Use: {VRAM_use()} %')
+        print(f'VRAM Clock: {VRAM_clock()} MHz')
+        print(f'Fan Speed: {fan_speed()} %')
+
+def write_csv_header():
+    with open('nvidia_stats.csv', 'w') as fp:
+        fieldnames = ['time_elapsed', 'GPU_temp', 'GPU_use', 'GPU_clock', 'VRAM_use', 'VRAM_clock', 'fan_speed']
+        writer = csv.DictWriter(fp, fieldnames=fieldnames)
+        writer.writeheader()
+
+def write_csv():
+    with open('nvidia_stats.csv', 'a') as fp:
+        fieldnames = ['time_elapsed', 'GPU_temp', 'GPU_use', 'GPU_clock', 'VRAM_use', 'VRAM_clock', 'fan_speed']
+        writer = csv.writer(fp)
+        writer.writerow([time_elapsed, GPU_temp(), GPU_use(), GPU_clock(), VRAM_use(), VRAM_clock(), fan_speed()])
 
 def get_stats():
-    while True:
-        get_GPU_utilization()
-        get_GPU_clock()
-        get_VRAM_utilization()
-        get_VRAM_clock()
-        get_fan_speed()
-        get_GPU_temp()
-        print("\n\n")
-        time.sleep(2)
+    GPU_temp()
+    GPU_use()
+    GPU_clock()
+    VRAM_use()
+    VRAM_clock()
+    fan_speed()
+    print("\n\n")
+    write_csv()
 
 if __name__ == '__main__':
-    get_stats()
+    write_csv_header()
+    while True:
+        get_stats()
+        print_formatted()
+        time_elapsed += 2
+        time.sleep(2)
