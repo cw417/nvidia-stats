@@ -18,14 +18,14 @@ def GPU_temp():
     cmd = 'nvidia-smi --query-gpu=temperature.gpu --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d\d')
-    match  = reg.search(check).group(0)
+    match = reg.search(check).group(0)
     return match
 
 def GPU_use():
     cmd = 'nvidia-smi --query-gpu=utilization.gpu --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d* %')
-    match  = reg.search(check).group(0)
+    match = reg.search(check).group(0)
     num = match.strip(' %')
     return num
 
@@ -33,7 +33,7 @@ def GPU_clock():
     cmd = 'nvidia-smi --query-gpu=clocks.gr --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d\d\d\d MHz')
-    match  = reg.search(check).group(0)
+    match = reg.search(check).group(0)
     num = match.strip(' MHz')
     return num
 
@@ -41,7 +41,7 @@ def VRAM_use():
     cmd = 'nvidia-smi --query-gpu=utilization.memory --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d* %')
-    match  = reg.search(check).group(0)
+    match = reg.search(check).group(0)
     num = match.strip(' %')
     return num
 
@@ -49,7 +49,7 @@ def VRAM_clock():
     cmd = 'nvidia-smi --query-gpu=clocks.mem --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d\d\d\d MHz')
-    match  = reg.search(check).group(0)
+    match = reg.search(check).group(0)
     num = match.strip(' MHz')
     return num
 
@@ -57,17 +57,17 @@ def fan_speed():
     cmd = 'nvidia-smi --query-gpu=fan.speed --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d* %')
-    match  = reg.search(check).group(0)
+    match = reg.search(check).group(0)
     num = match.strip(' %')
     return num
 
 def print_formatted():
-        print(f'GPU Temp: {GPU_temp()} C')
-        print(f'GPU Use: {GPU_use()} %')
-        print(f'GPU Clock: {GPU_clock()} MHz')
-        print(f'VRAM Use: {VRAM_use()} %')
-        print(f'VRAM Clock: {VRAM_clock()} MHz')
-        print(f'Fan Speed: {fan_speed()} %')
+    print(f'GPU Temp: {GPU_temp()} C')
+    print(f'GPU Use: {GPU_use()} %')
+    print(f'GPU Clock: {GPU_clock()} MHz')
+    print(f'VRAM Use: {VRAM_use()} %')
+    print(f'VRAM Clock: {VRAM_clock()} MHz')
+    print(f'Fan Speed: {fan_speed()} %')
 
 def write_csv_header():
     with open('nvidia_stats.csv', 'w') as fp:
