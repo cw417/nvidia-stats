@@ -62,12 +62,12 @@ def fan_speed():
     return num
 
 def print_formatted():
-        print(f'GPU Temp: {GPU_temp()} C')
-        print(f'GPU Use: {GPU_use()} %')
-        print(f'GPU Clock: {GPU_clock()} MHz')
-        print(f'VRAM Use: {VRAM_use()} %')
-        print(f'VRAM Clock: {VRAM_clock()} MHz')
-        print(f'Fan Speed: {fan_speed()} %')
+    print(f'GPU Temp: {GPU_temp()} C')
+    print(f'GPU Use: {GPU_use()} %')
+    print(f'GPU Clock: {GPU_clock()} MHz')
+    print(f'VRAM Use: {VRAM_use()} %')
+    print(f'VRAM Clock: {VRAM_clock()} MHz')
+    print(f'Fan Speed: {fan_speed()} %')
 
 def write_csv_header():
     with open('nvidia_stats.csv', 'w') as fp:
