@@ -33,12 +33,10 @@ def run():
     # Set plot 1 labels
     ax1.legend(loc='upper left')
     ax1.set_title('GPU Stats')
-    #ax1.set_ylabel('Temp, Use, Fan')
 
     # Set plot 2 labels
     ax2.legend(loc='upper left')
     ax2.set_xlabel('Time')
-    #ax2.set_ylabel('Clock')
     plt.tight_layout()
 
   ani = FuncAnimation(fig, animate, interval=2000)

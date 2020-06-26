@@ -11,6 +11,7 @@ import subprocess
 import re
 import csv
 import time
+import pandas as pd
 
 time_elapsed = 0
 
@@ -61,13 +62,19 @@ def fan_speed():
     num = match.strip(' %')
     return num
 
+def get_total(col):
+    df = pd.read_csv('nvidia_stats.csv')
+    data = df[col]
+    avg = data.mean(axis=0)
+    return avg
+
 def print_formatted():
-    print(f'GPU Temp: {GPU_temp()} C')
-    print(f'GPU Use: {GPU_use()} %')
-    print(f'GPU Clock: {GPU_clock()} MHz')
-    print(f'VRAM Use: {VRAM_use()} %')
-    print(f'VRAM Clock: {VRAM_clock()} MHz')
-    print(f'Fan Speed: {fan_speed()} %')
+    print(f'GPU Temp:   {GPU_temp()} C,        avg={get_total("GPU_temp")}')
+    print(f'GPU Use:    {GPU_use()} %,        avg={get_total("GPU_use")}')
+    print(f'GPU Clock:  {GPU_clock()} MHz,    avg={get_total("GPU_clock")}')
+    print(f'VRAM Use:   {VRAM_use()} %,        avg={get_total("VRAM_use")}')
+    print(f'VRAM Clock: {VRAM_clock()} MHz,    avg={get_total("VRAM_clock")}')
+    print(f'Fan Speed:  {fan_speed()} %,        avg={get_total("fan_speed")}')
 
 def write_csv_header():
     with open('nvidia_stats.csv', 'w') as fp:
@@ -85,13 +92,8 @@ def increment():
     time_elapsed += 2
     time.sleep(2)
 
+
 def get_stats():
-    GPU_temp()
-    GPU_use()
-    GPU_clock()
-    VRAM_use()
-    VRAM_clock()
-    fan_speed()
     print_formatted()
     print("\n\n")
     write_csv()
