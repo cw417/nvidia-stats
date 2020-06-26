@@ -92,7 +92,6 @@ def increment():
     time_elapsed += 2
     time.sleep(2)
 
-
 def get_stats():
     print_formatted()
     print("\n\n")
