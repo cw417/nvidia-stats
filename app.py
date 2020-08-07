@@ -18,14 +18,14 @@ time_elapsed = 0
 def GPU_temp():
     cmd = 'nvidia-smi --query-gpu=temperature.gpu --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d\d')
+    reg = re.compile(r'\d+')
     match  = reg.search(check).group(0)
     return match
 
 def GPU_use():
     cmd = 'nvidia-smi --query-gpu=utilization.gpu --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d* %')
+    reg = re.compile(r'\d+ %')
     match  = reg.search(check).group(0)
     num = match.strip(' %')
     return num
@@ -33,7 +33,7 @@ def GPU_use():
 def GPU_clock():
     cmd = 'nvidia-smi --query-gpu=clocks.gr --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d\d\d\d MHz')
+    reg = re.compile(r'\d+ MHz')
     match  = reg.search(check).group(0)
     num = match.strip(' MHz')
     return num
@@ -41,7 +41,7 @@ def GPU_clock():
 def VRAM_use():
     cmd = 'nvidia-smi --query-gpu=utilization.memory --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d* %')
+    reg = re.compile(r'\d+ %')
     match  = reg.search(check).group(0)
     num = match.strip(' %')
     return num
@@ -49,7 +49,7 @@ def VRAM_use():
 def VRAM_clock():
     cmd = 'nvidia-smi --query-gpu=clocks.mem --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d\d\d\d MHz')
+    reg = re.compile(r'\d+ MHz')
     match  = reg.search(check).group(0)
     num = match.strip(' MHz')
     return num
@@ -69,12 +69,12 @@ def get_total(col):
     return avg
 
 def print_formatted():
-    print(f'GPU Temp:   {GPU_temp()} C,        avg={get_total("GPU_temp")}')
-    print(f'GPU Use:    {GPU_use()} %,        avg={get_total("GPU_use")}')
-    print(f'GPU Clock:  {GPU_clock()} MHz,    avg={get_total("GPU_clock")}')
-    print(f'VRAM Use:   {VRAM_use()} %,        avg={get_total("VRAM_use")}')
-    print(f'VRAM Clock: {VRAM_clock()} MHz,    avg={get_total("VRAM_clock")}')
-    print(f'Fan Speed:  {fan_speed()} %,        avg={get_total("fan_speed")}')
+    print(f'GPU Temp:   {GPU_temp()} C,        avg={round(get_total("GPU_temp"), 2)}')
+    print(f'GPU Use:    {GPU_use()} %,        avg={round(get_total("GPU_use"), 2)}')
+    print(f'GPU Clock:  {GPU_clock()} MHz,    avg={round(get_total("GPU_clock"), 2)}')
+    print(f'VRAM Use:   {VRAM_use()} %,        avg={round(get_total("VRAM_use"), 2)}')
+    print(f'VRAM Clock: {VRAM_clock()} MHz,    avg={round(get_total("VRAM_clock"), 2)}')
+    print(f'Fan Speed:  {fan_speed()} %,        avg={round(get_total("fan_speed"), 2)}')
 
 def write_csv_header():
     with open('nvidia_stats.csv', 'w') as fp:

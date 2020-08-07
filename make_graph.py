@@ -1,7 +1,18 @@
 import matplotlib.pyplot as plt
 from matplotlib import style
 import pandas as pd
+import re
+import subprocess
 from matplotlib.animation import FuncAnimation
+
+
+def max_clock():
+    cmd = 'nvidia-smi -q | grep Video'
+    check = str(subprocess.check_output(cmd, shell=True))
+    reg = re.findall("\d+", check)
+    return reg[1]
+
+max_clock = int(max_clock())
 
 def run():
 
@@ -28,6 +39,7 @@ def run():
 
     # Define plot 2
     ax2.cla()
+    ax2.set_ylim([0,max_clock])
     ax2.plot(time, GPU_clock, label='GPU Clock')
 
     # Set plot 1 labels
