@@ -7,6 +7,7 @@ from matplotlib.animation import FuncAnimation
 
 
 def max_clock():
+    # Get data for max GPU clock to later set GPU clock graph axis limit
     cmd = 'nvidia-smi -q | grep Video'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.findall("\d+", check)
@@ -45,10 +46,14 @@ def run():
     # Set plot 1 labels
     ax1.legend(loc='upper left')
     ax1.set_title('GPU Stats')
+    ax1.text(time.iloc[-1], 100, f'GPU Temp: {GPU_temp.iloc[-1]}', horizontalalignment='right', verticalalignment='bottom')
+    ax1.text(time.iloc[-1], 0, f'GPU Use: {GPU_use.iloc[-1]}', horizontalalignment='right', verticalalignment='top')
 
     # Set plot 2 labels
     ax2.legend(loc='upper left')
     ax2.set_xlabel('Time')
+    ax2.text(time.iloc[-1], max_clock, f'GPU Clock: {GPU_clock.iloc[-1]}', horizontalalignment='right', verticalalignment='bottom')
+
     plt.tight_layout()
 
   ani = FuncAnimation(fig, animate, interval=2000)
