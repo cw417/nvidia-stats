@@ -32,7 +32,7 @@ NvidiaStats is a command line GPU stat reporting application written for use in 
     - `pip install matplotlib pandas`
 4) Run NvidiaStats: 
     - Change directory into the cloned NvidiaStats directory: `cd nvidia-stats`
-    - Run the app: `python run.py`
+    - Run the app: `python3 run.py`
 
 ## How It Works
  - GPU stats are obtained via the subprocess module running the `nvidia-smi -q` command with the specified stat output option
