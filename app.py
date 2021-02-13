@@ -15,14 +15,14 @@ import pandas as pd
 
 time_elapsed = 0
 
-def GPU_temp():
+def gpu_temp():
     cmd = 'nvidia-smi --query-gpu=temperature.gpu --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d+')
     match  = reg.search(check).group(0)
     return match
 
-def GPU_use():
+def gpu_use():
     cmd = 'nvidia-smi --query-gpu=utilization.gpu --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d+ %')
@@ -30,7 +30,7 @@ def GPU_use():
     num = match.strip(' %')
     return num
 
-def GPU_clock():
+def gpu_clock():
     cmd = 'nvidia-smi --query-gpu=clocks.gr --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d+ MHz')
@@ -38,7 +38,7 @@ def GPU_clock():
     num = match.strip(' MHz')
     return num
 
-def VRAM_use():
+def vram_use():
     cmd = 'nvidia-smi --query-gpu=utilization.memory --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d+ %')
@@ -46,7 +46,7 @@ def VRAM_use():
     num = match.strip(' %')
     return num
 
-def VRAM_clock():
+def vram_clock():
     cmd = 'nvidia-smi --query-gpu=clocks.mem --format=csv'
     check = str(subprocess.check_output(cmd, shell=True))
     reg = re.compile(r'\d+ MHz')
@@ -69,23 +69,23 @@ def get_total(col):
     return avg
 
 def print_formatted():
-    print(f'GPU Temp:   {GPU_temp()} C,        avg={round(get_total("GPU_temp"), 2)}')
-    print(f'GPU Use:    {GPU_use()} %,        avg={round(get_total("GPU_use"), 2)}')
-    print(f'GPU Clock:  {GPU_clock()} MHz,    avg={round(get_total("GPU_clock"), 2)}')
-    print(f'VRAM Use:   {VRAM_use()} %,        avg={round(get_total("VRAM_use"), 2)}')
-    print(f'VRAM Clock: {VRAM_clock()} MHz,    avg={round(get_total("VRAM_clock"), 2)}')
+    print(f'GPU Temp:   {gpu_temp()} C,        avg={round(get_total("gpu_temp"), 2)}')
+    print(f'GPU Use:    {gpu_use()} %,        avg={round(get_total("gpu_use"), 2)}')
+    print(f'GPU Clock:  {gpu_clock()} MHz,    avg={round(get_total("gpu_clock"), 2)}')
+    print(f'VRAM Use:   {vram_use()} %,        avg={round(get_total("vram_use"), 2)}')
+    print(f'VRAM Clock: {vram_clock()} MHz,    avg={round(get_total("vram_clock"), 2)}')
     print(f'Fan Speed:  {fan_speed()} %,        avg={round(get_total("fan_speed"), 2)}')
 
 def write_csv_header():
     with open('nvidia_stats.csv', 'w') as fp:
-        fieldnames = ['time_elapsed', 'GPU_temp', 'GPU_use', 'GPU_clock', 'VRAM_use', 'VRAM_clock', 'fan_speed']
+        fieldnames = ['time_elapsed', 'gpu_temp', 'gpu_use', 'gpu_clock', 'vram_use', 'vram_clock', 'fan_speed']
         writer = csv.DictWriter(fp, fieldnames=fieldnames)
         writer.writeheader()
 
 def write_csv():
     with open('nvidia_stats.csv', 'a') as fp:
         writer = csv.writer(fp)
-        writer.writerow([time_elapsed, GPU_temp(), GPU_use(), GPU_clock(), VRAM_use(), VRAM_clock(), fan_speed()])
+        writer.writerow([time_elapsed, gpu_temp(), gpu_use(), gpu_clock(), vram_use(), vram_clock(), fan_speed()])
 
 def increment():
     global time_elapsed
@@ -97,11 +97,11 @@ def get_stats():
     print("\n\n")
     write_csv()
 
-def run():
+def main():
     write_csv_header()
     while True:
         get_stats()
         increment()
 
 if __name__ == '__main__':
-    run()
+    main()

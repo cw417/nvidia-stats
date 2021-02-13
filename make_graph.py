@@ -15,7 +15,7 @@ def max_clock():
 
 max_clock = int(max_clock())
 
-def run():
+def main():
 
   style.use('seaborn')
 
@@ -26,33 +26,33 @@ def run():
     # Read data from CSV  
     data = pd.read_csv('nvidia_stats.csv')
     time = data['time_elapsed']
-    GPU_temp = data['GPU_temp']
-    GPU_clock = data['GPU_clock']
-    GPU_use = data['GPU_use']
+    gpu_temp = data['gpu_temp']
+    gpu_clock = data['gpu_clock']
+    gpu_use = data['gpu_use']
     fan_speed = data['fan_speed']
 
     # Define plot 1
     ax1.cla()
     ax1.set_ylim([0,100])
-    ax1.plot(time, GPU_temp, label='GPU Temp', color='red')
-    ax1.plot(time, GPU_use, label='GPU Use', color='green', linestyle='--')
+    ax1.plot(time, gpu_temp, label='GPU Temp', color='red')
+    ax1.plot(time, gpu_use, label='GPU Use', color='green', linestyle='--')
     ax1.plot(time, fan_speed, label='Fan Speed', color='blue', linestyle='--')
 
     # Define plot 2
     ax2.cla()
     ax2.set_ylim([0,max_clock])
-    ax2.plot(time, GPU_clock, label='GPU Clock')
+    ax2.plot(time, gpu_clock, label='GPU Clock')
 
     # Set plot 1 labels
     ax1.legend(loc='upper left')
     ax1.set_title('GPU Stats')
-    ax1.text(time.iloc[-1], 100, f'GPU Temp: {GPU_temp.iloc[-1]}', horizontalalignment='right', verticalalignment='bottom')
-    ax1.text(time.iloc[-1], 0, f'GPU Use: {GPU_use.iloc[-1]}', horizontalalignment='right', verticalalignment='top')
+    ax1.text(time.iloc[-1], 100, f'GPU Temp: {gpu_temp.iloc[-1]}', horizontalalignment='right', verticalalignment='bottom')
+    ax1.text(time.iloc[-1], 0, f'GPU Use: {gpu_use.iloc[-1]}', horizontalalignment='right', verticalalignment='top')
 
     # Set plot 2 labels
     ax2.legend(loc='upper left')
     ax2.set_xlabel('Time')
-    ax2.text(time.iloc[-1], max_clock, f'GPU Clock: {GPU_clock.iloc[-1]}', horizontalalignment='right', verticalalignment='bottom')
+    ax2.text(time.iloc[-1], max_clock, f'GPU Clock: {gpu_clock.iloc[-1]}', horizontalalignment='right', verticalalignment='bottom')
 
     plt.tight_layout()
 
@@ -61,4 +61,4 @@ def run():
   plt.show()
 
 if __name__ == '__main__':
-    run()
+    main()
