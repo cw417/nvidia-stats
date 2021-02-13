@@ -46,13 +46,13 @@ def main():
     # Set plot 1 labels
     ax1.legend(loc='upper left')
     ax1.set_title('GPU Stats')
-    ax1.text(time.iloc[-1], 100, f'GPU Temp: {gpu_temp.iloc[-1]}', horizontalalignment='right', verticalalignment='bottom')
-    ax1.text(time.iloc[-1], 0, f'GPU Use: {gpu_use.iloc[-1]}', horizontalalignment='right', verticalalignment='top')
+    ax1.text(time.iloc[-1], 100, f'GPU Temp: {gpu_temp.iloc[-1]}\u00b0', horizontalalignment='right', verticalalignment='bottom')
+    ax1.text(time.iloc[-1], 0, f'GPU Use: {gpu_use.iloc[-1]} \u0025', horizontalalignment='right', verticalalignment='top')
 
     # Set plot 2 labels
     ax2.legend(loc='upper left')
     ax2.set_xlabel('Time')
-    ax2.text(time.iloc[-1], max_clock, f'GPU Clock: {gpu_clock.iloc[-1]}', horizontalalignment='right', verticalalignment='bottom')
+    ax2.text(time.iloc[-1], max_clock, f'GPU Clock: {gpu_clock.iloc[-1]} Mhz', horizontalalignment='right', verticalalignment='bottom')
 
     plt.tight_layout()
 

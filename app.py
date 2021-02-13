@@ -1,11 +1,5 @@
-# WORKFLOW:
-#     - specify command to get GPU stats
-#     - run command with subprocess.check_output
-#     - parse output with regex
-#     - output regex match to csv file
-#     - create real time graph with matplotlib - make_graph.py
 #   TODO:
-#     - Run app & make_graph simultaneously from one program
+#     - Add functioning close button to make_chart
 
 import subprocess
 import re

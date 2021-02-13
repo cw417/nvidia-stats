@@ -13,7 +13,7 @@ class StatsGraph(tk.Frame):
     # Grid item settings
     label_width = 12
     label_font = ("Helvetica", 16)
-    num_width = 20
+    num_width = 10
     num_font = ("Helvetica", 16)
 
     data = pd.read_csv('nvidia_stats.csv')
