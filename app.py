@@ -16,66 +16,32 @@ def get_data(cmd, reg_addition):
     match  = regex.search(check).group(0)
     return match.strip(reg_addition)
     
-
-
 def gpu_temp():
-    """Checks current GPU temperature"""
-    return get_data('nvidia-smi --query-gpu=temperature.gpu --format=csv', "", "")
-    """ cmd = 'nvidia-smi --query-gpu=temperature.gpu --format=csv'
-    check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d+')
-    match  = reg.search(check).group(0)
-    return match """
+    """Returns current GPU temperature"""
+    return get_data('nvidia-smi --query-gpu=temperature.gpu --format=csv', "")
+    
 
 def gpu_use():
-    """Checks current GPU percent use"""
-    return get_data("nvidia-smi --query-gpu=utilization.gpu --format=csv", " %"," %")
-    """ cmd = 'nvidia-smi --query-gpu=utilization.gpu --format=csv'
-    check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d+ %')
-    match  = reg.search(check).group(0)
-    num = match.strip(' %')
-    return num """
+    """Returns current GPU percent use"""
+    return get_data("nvidia-smi --query-gpu=utilization.gpu --format=csv", " %")
+    
 
 def gpu_clock():
-    """Checks current GPU clock"""
+    """Returns current GPU clock"""
     return get_data("nvidia-smi --query-gpu=clocks.gr --format=csv", " MHz")
-    """ cmd = 'nvidia-smi --query-gpu=clocks.gr --format=csv'
-    check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d+ MHz')
-    match  = reg.search(check).group(0)
-    num = match.strip(' MHz')
-    return num """
+    
 
 def vram_use():
-    """Checks current GPU VRAM percent use"""
+    """Returns current GPU VRAM percent use"""
     return get_data("nvidia-smi --query-gpu=utilization.memory --format=csv", " %")
-    """ cmd = 'nvidia-smi --query-gpu=utilization.memory --format=csv'
-    check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d+ %')
-    match  = reg.search(check).group(0)
-    num = match.strip(' %') 
-    return num """
 
 def vram_clock():
-    """Checks current GPU VRAM clock"""
+    """Returns current GPU VRAM clock"""
     return get_data("nvidia-smi --query-gpu=clocks.mem --format=csv", " MHz")
-    """ cmd = 'nvidia-smi --query-gpu=clocks.mem --format=csv'
-    check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d+ MHz')
-    match  = reg.search(check).group(0)
-    num = match.strip(' MHz')
-    return num """
 
 def fan_speed():
-    """Checks current fan speed"""
+    """Returns current fan speed"""
     return get_data("nvidia-smi --query-gpu=fan.speed --format=csv", " %")
-    """ cmd = 'nvidia-smi --query-gpu=fan.speed --format=csv'
-    check = str(subprocess.check_output(cmd, shell=True))
-    reg = re.compile(r'\d* %')
-    match  = reg.search(check).group(0)
-    num = match.strip(' %')
-    return num """
 
 def get_total(col):
     """Takes in string column name, returns float average"""
