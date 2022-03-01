@@ -56,7 +56,7 @@ def main():
 
     plt.tight_layout()
 
-  ani = FuncAnimation(fig, animate, interval=2000)
+  ani = FuncAnimation(fig, animate, interval=200)
 
   plt.show()
 

@@ -1,5 +1,6 @@
 #   TODO:
 #     - Add functioning close button to make_chart
+#     - replace get_data calls with run_command and format_num
 
 import subprocess
 import re
@@ -8,6 +9,20 @@ import time
 import pandas as pd
 
 time_elapsed = 0
+
+def run_command(cmd):
+    """Runs string cmd in OS shell, return string output"""
+    return str(subprocess.check_output(cmd, shell=True))
+
+def format_num(regex, string_to_check):
+    """
+    Take in string regex and string string_to_check, return formatted string number.
+    Regex is appended to "\d+" before being compiled.
+    
+    """
+    reg = re.compile(rf"\d+{regex}")
+    match  = reg.search(string_to_check).group(0)
+    return match.strip(regex)
 
 def get_data(cmd, reg_addition):
     """Takes in string command, string addition to regex pattern, and string to strip"""
@@ -75,13 +90,13 @@ def write_csv():
 def increment():
     """Increments global timer"""
     global time_elapsed
-    time_elapsed += 2
-    time.sleep(2)
+    time_elapsed += 1 
+    time.sleep(1)
 
 def get_stats():
     """Prints stats to terminal"""
-    print_formatted()
-    print("\n\n")
+    #print_formatted()
+    #print("\n\n")
     write_csv()
 
 def main():
@@ -92,4 +107,7 @@ def main():
         increment()
 
 if __name__ == '__main__':
-    main()
+    cmd = run_command("nvidia-smi --query-gpu=temperature.gpu --format=csv")
+    print(format_num("", cmd))
+
+    #main()
