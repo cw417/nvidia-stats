@@ -1,23 +1,28 @@
-# NvidiaStats
-Nvidia GPU stat reporting app for Linux
+# nvidia-stats
+
+Nvidia GPU stat reporting app for Linux.
 
 ## Table of Contents
-1. About
-2. Getting Started
-    1. Prerequisites
-    2. Installing
-3. How It Works
+
+- [About](#about)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installing](#installing)
+- [How It Works](#how-it-works)
 
 ## About
+
 NvidiaStats is a command line GPU stat reporting application written for use in a Linux-based operating system running the Xorg display server with proprietary Nvidia drivers. Currently, it will report GPU utilization, GPU clock, GPU temperature, VRAM utilization, VRAM clock, and fan speed.
 
 ![graph image](./images/graph_screenshot.png)
 ![chart image](./images/chart_screenshot.png)
 
 ## Getting Started
+
 ### Prerequisites
+
 - Linux-based operating system
-    - Xorg display server
+  - Xorg display server
 - Nvidia GPU running proprietary nvidia drivers
 - Python 3.6+
 - Python dependencies:
@@ -25,6 +30,7 @@ NvidiaStats is a command line GPU stat reporting application written for use in 
   - pandas
 
 ### Installing
+
 1) You can check that you are using prorietary nvidia drivers compatible with the NvidiaStats:
    - `ixni -G`
    - Check your driver info to make sure it is listed as `nvidia`
@@ -41,8 +47,9 @@ NvidiaStats is a command line GPU stat reporting application written for use in 
    - `python3 run.py`
 
 ## How It Works
- - GPU stats are obtained via the subprocess module running the `nvidia-smi -q` command with the specified stat output option
- - Output from the subprocess module is parsed via regex
- - The regex match output is written to a CSV file, as well as formatted and printed to the command line
- - Matplotlib reads the CSV file for updates, and plots the live output on a graph
- - Tkinter is used to create a GUI to display stats and updates in real time
+
+- GPU stats are obtained via the subprocess module running the `nvidia-smi -q` command with the specified stat output option
+- Output from the subprocess module is parsed via regex
+- The regex match output is written to a CSV file, as well as formatted and printed to the command line
+- Matplotlib reads the CSV file for updates, and plots the live output on a graph
+- Tkinter is used to create a GUI to display stats and updates in real time
