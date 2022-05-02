@@ -1,6 +1,7 @@
 import tkinter as tk
 import pandas as pd
 import time
+import settings
 
 class StatsGraph(tk.Frame):
   def __init__(self, master=None, *args, **kwargs):
@@ -85,44 +86,44 @@ class StatsGraph(tk.Frame):
       updated_data = get_data()
       updated = updated_data[0].iloc[-1]
       self.gpu_temp_num.configure(text=f"{updated}\u00b0")
-      self.gpu_temp_num.after(200, update_gpu_temp_num)
+      self.gpu_temp_num.after(settings.update_time_ms, update_gpu_temp_num)
 
     def update_gpu_use_num():
       updated_data = get_data()
       updated = updated_data[1].iloc[-1]
       self.gpu_use_num.configure(text=f"{updated} \u0025")
-      self.gpu_use_num.after(200, update_gpu_use_num)
+      self.gpu_use_num.after(settings.update_time_ms, update_gpu_use_num)
 
     def update_gpu_clock_num():
       updated_data = get_data()
       updated = updated_data[2].iloc[-1]
       self.gpu_clock_num.configure(text=f"{updated} Mhz")
-      self.gpu_clock_num.after(200, update_gpu_clock_num)
+      self.gpu_clock_num.after(settings.update_time_ms, update_gpu_clock_num)
 
     def update_vram_use_num():
       updated_data = get_data()
       updated = updated_data[3].iloc[-1]
       self.vram_use_num.configure(text=f"{updated} \u0025")
-      self.vram_use_num.after(200, update_vram_use_num)
+      self.vram_use_num.after(settings.update_time_ms, update_vram_use_num)
 
     def update_vram_clock_num():
       updated_data = get_data()
       updated = updated_data[4].iloc[-1]
       self.vram_clock_num.configure(text=f"{updated} Mhz")
-      self.vram_clock_num.after(200, update_vram_clock_num)
+      self.vram_clock_num.after(settings.update_time_ms, update_vram_clock_num)
 
     def update_fan_speed_num():
       updated_data = get_data()
       updated = updated_data[5].iloc[-1]
       self.fan_speed_num.configure(text=f"{updated} \u0025")
-      self.fan_speed_num.after(200, update_fan_speed_num)
+      self.fan_speed_num.after(settings.update_time_ms, update_fan_speed_num)
 
-    self.gpu_temp_num.after(200, update_gpu_temp_num)
-    self.gpu_use_num.after(200, update_gpu_use_num)
-    self.gpu_clock_num.after(200, update_gpu_clock_num)
-    self.vram_use_num.after(200, update_vram_use_num)
-    self.vram_use_num.after(200, update_vram_clock_num)
-    self.fan_speed_num.after(200, update_fan_speed_num)
+    self.gpu_temp_num.after(settings.update_time_ms, update_gpu_temp_num)
+    self.gpu_use_num.after(settings.update_time_ms, update_gpu_use_num)
+    self.gpu_clock_num.after(settings.update_time_ms, update_gpu_clock_num)
+    self.vram_use_num.after(settings.update_time_ms, update_vram_use_num)
+    self.vram_use_num.after(settings.update_time_ms, update_vram_clock_num)
+    self.fan_speed_num.after(settings.update_time_ms, update_fan_speed_num)
 
 def main():
   root = tk.Tk()

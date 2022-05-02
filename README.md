@@ -31,9 +31,9 @@ NvidiaStats is a command line GPU stat reporting application written for use in 
 
 ### Installing
 
-1) You can check that you are using prorietary nvidia drivers compatible with the NvidiaStats:
-   - `ixni -G`
-   - Check your driver info to make sure it is listed as `nvidia`
+1) Check that you are using a compatible Nvidia GPU and driver:
+   - `lspci -k | grep -A 2 -E "(VGA|3D)"`
+   - Check your driver under `Kernel driver in use` to make sure it is listed as `nvidia`
 2) Clone the repository:
    - `git clone https://github.com/cw417/nvidia-stats`
 3) Change into the new directory:
@@ -43,7 +43,7 @@ NvidiaStats is a command line GPU stat reporting application written for use in 
    - `source env/bin/activate`
 5) Install the necessary python dependencies
    - `pip3 install matplotlib pandas`
-6) Run NvidiaStats: 
+6) Run NvidiaStats:
    - `python3 run.py`
 
 ## How It Works
