@@ -4,6 +4,7 @@ import pandas as pd
 import re
 import subprocess
 from matplotlib.animation import FuncAnimation
+import settings
 
 
 def max_clock():
@@ -56,7 +57,7 @@ def main():
 
     plt.tight_layout()
 
-  ani = FuncAnimation(fig, animate, interval=200)
+  ani = FuncAnimation(fig, animate, interval=settings.update_time_ms)
 
   plt.show()
 
