@@ -7,6 +7,7 @@ import re
 import csv
 import time
 import pandas as pd
+import settings
 
 time_elapsed = 0
 
@@ -90,8 +91,8 @@ def write_csv():
 def increment():
     """Increments global timer"""
     global time_elapsed
-    time_elapsed += 1 
-    time.sleep(1)
+    time_elapsed += settings.update_time 
+    time.sleep(settings.update_time)
 
 def get_stats():
     """Prints stats to terminal"""
