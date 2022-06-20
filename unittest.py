@@ -1,5 +1,5 @@
 import unittest
-import app
+import stats
 
 class TestChart(unittest.TestCase):
 
