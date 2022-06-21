@@ -3,7 +3,7 @@ import pandas as pd
 import time
 import settings
 
-class StatsGraph(tk.Frame):
+class StatsChart(tk.Frame):
   def __init__(self, master=None, *args, **kwargs):
     super().__init__(master, **kwargs)
     self.master = master
