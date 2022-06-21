@@ -127,7 +127,7 @@ class StatsChart(tk.Frame):
 
 def main():
   root = tk.Tk()
-  app = StatsGraph(root)
+  app = StatsChart(root)
   app.pack(fill=tk.BOTH, expand=1)
   root.mainloop()
 
